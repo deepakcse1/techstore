@@ -28,7 +28,7 @@ public class UserController {
         UserResponse userResponse = userService.register(request);
         ApiResponse<UserResponse> apiResponse = ApiResponse.<UserResponse>builder()
                 .success(true)
-                .message("User Regitered Successfully")
+                .message("User Registered Successfully")
                 .timestamp(Instant.now())
                 .data(userResponse)
                 .build();
