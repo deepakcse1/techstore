@@ -1,4 +1,4 @@
-package com.deepak.techstore.user.dto.request;
+package com.deepak.techstore.auth.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
