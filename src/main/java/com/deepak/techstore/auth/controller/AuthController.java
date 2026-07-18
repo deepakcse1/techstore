@@ -1,6 +1,8 @@
 package com.deepak.techstore.auth.controller;
 
+import com.deepak.techstore.auth.dto.request.LoginRequest;
 import com.deepak.techstore.auth.dto.request.RegisterRequest;
+import com.deepak.techstore.auth.dto.response.LoginResponse;
 import com.deepak.techstore.auth.dto.response.RegisterResponse;
 import com.deepak.techstore.auth.service.AuthService;
 import com.deepak.techstore.common.dto.ApiResponse;
@@ -15,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 
 @RestController
-@RequestMapping("/api/v1/register")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private final AuthService authService;
     public AuthController(AuthService authService){
@@ -33,6 +35,20 @@ public class AuthController {
                 .build();
         return ResponseEntity
                 .status(HttpStatus.CREATED)
+                .body(apiResponse);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest request){
+        LoginResponse loginResponse =  authService.login(request);
+        ApiResponse<LoginResponse> apiResponse = ApiResponse.<LoginResponse>builder()
+                .success(true)
+                .message("Login Successfully")
+                .timestamp(Instant.now())
+                .data(loginResponse)
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.OK)
                 .body(apiResponse);
     }
 }
